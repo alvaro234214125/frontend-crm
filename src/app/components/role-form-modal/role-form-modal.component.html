@@ -1,0 +1,31 @@
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center transition-all duration-300"
+  [ngClass]="showContent ? 'bg-black/30' : 'bg-black/0'"
+  *ngIf="visible"
+>
+  <div
+    class="bg-white p-6 rounded-lg w-full max-w-sm shadow-xl transform transition-all duration-300"
+    [ngClass]="showContent ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
+  >
+    <h2 class="text-lg font-semibold mb-4">
+      {{ initialData ? 'Editar Rol' : 'Nuevo Rol' }}
+    </h2>
+    <input
+      type="text"
+      [(ngModel)]="name"
+      placeholder="Nombre del rol"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4"
+    />
+    <div class="flex justify-end gap-2">
+      <button (click)="handleClose()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+        Cancelar
+      </button>
+      <button
+        (click)="submit()"
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
+        {{ initialData ? 'Actualizar' : 'Crear' }}
+      </button>
+    </div>
+  </div>
+</div>

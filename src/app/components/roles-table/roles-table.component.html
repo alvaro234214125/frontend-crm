@@ -1,0 +1,29 @@
+<table class="w-full text-sm">
+  <thead>
+    <tr class="text-left text-gray-500">
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of roles" class="border-t border-gray-200 hover:bg-gray-50">
+      <td class="py-2 font-medium">{{ r.id }}</td>
+      <td>{{ r.name }}</td>
+      <td class="flex gap-2 py-2">
+        <button
+          (click)="onEdit.emit(r)"
+          class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1.5 rounded-md text-sm"
+        >
+          Editar
+        </button>
+        <button
+          (click)="onDelete.emit(r.id)"
+          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
+        >
+          Eliminar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

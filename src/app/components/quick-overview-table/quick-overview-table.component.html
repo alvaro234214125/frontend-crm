@@ -1,0 +1,32 @@
+<div class="bg-white p-6 rounded-xl shadow-md">
+    <h2 class="text-lg font-semibold mb-4">Últimas órdenes</h2>
+    <table class="w-full text-sm text-left">
+      <thead>
+        <tr class="text-gray-500 border-b">
+          <th class="pb-2">Order ID</th>
+          <th class="pb-2">Cliente</th>
+          <th class="pb-2">Estado</th>
+          <th class="pb-2">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of orders" class="border-t">
+          <td class="py-2 font-medium">{{ o.id }}</td>
+          <td>{{ o.customer }}</td>
+          <td>
+            <span
+              class="px-3 py-1 text-xs font-semibold rounded-full"
+              [ngClass]="{
+                'bg-green-100 text-green-600': o.status === 'Completado',
+                'bg-yellow-100 text-yellow-600': o.status === 'Pendiente',
+                'bg-red-100 text-red-600': o.status === 'Cancelado'
+              }">
+              {{ o.status }}
+            </span>
+          </td>
+          <td>{{ o.total }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

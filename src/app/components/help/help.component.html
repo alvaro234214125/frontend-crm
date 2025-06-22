@@ -1,0 +1,21 @@
+<main class="p-8">
+    <div class="flex items-center gap-3 mb-6">
+      <fa-icon [icon]="'handsHelping'" class="text-purple-600 text-3xl"></fa-icon>
+      <h1 class="text-3xl font-bold text-purple-700">Información del Proyecto</h1>
+    </div>
+  
+    <p class="text-gray-600 mb-6 text-lg">
+      Estos son los integrantes que desarrollaron este proyecto:
+    </p>
+  
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div
+        *ngFor="let i of integrantes"
+        class="bg-white shadow-sm rounded-xl p-4 border border-gray-100 hover:shadow-md transition duration-300"
+      >
+        <h2 class="font-semibold text-lg text-gray-800">{{ i.nombre }}</h2>
+        <p class="text-sm text-gray-500 mt-1">{{ i.codigo }}</p>
+      </div>
+    </div>
+  </main>
+  

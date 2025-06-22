@@ -1,0 +1,42 @@
+<aside
+  [ngClass]="collapsed ? 'w-20' : 'w-64'"
+  class="bg-white shadow-md transition-all duration-300 h-screen flex flex-col"
+>
+  <div class="flex-1 min-h-0 overflow-y-auto scrollbar-thin p-5 flex flex-col justify-between">
+    <div class="pb-6">
+      <div
+        [ngClass]="collapsed ? 'flex justify-center mb-6' : 'flex items-center justify-between mb-6'"
+      >
+        <div *ngIf="!collapsed" class="text-2xl font-bold">Proyecto-CRM</div>
+        <button
+          (click)="toggleSidebar()"
+          aria-label="Alternar barra lateral"
+          class="text-gray-600 hover:text-purple-600"
+        >
+          <fa-icon [icon]="faBars" size="lg"></fa-icon>
+        </button>
+      </div>
+
+      <nav class="space-y-3">
+        <a
+          *ngFor="let item of menuItems"
+          [routerLink]="item.to"
+          routerLinkActive="bg-purple-100 text-purple-600"
+          [routerLinkActiveOptions]="{ exact: item.to === '/' }"
+          class="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer text-sm font-medium transition-colors duration-300 ease-in-out text-gray-700 hover:bg-gray-100"
+        >
+          <fa-icon [icon]="item.icon" class="text-lg"></fa-icon>
+          <span *ngIf="!collapsed" class="transition-opacity duration-300">{{ item.label }}</span>
+        </a>
+      </nav>
+    </div>
+
+    <app-profile-section
+      *ngIf="user"
+      [collapsed]="collapsed"
+      [user]="user"
+      (onPerfil)="irAlPerfil()"
+      (onLogout)="cerrarSesion()"
+    ></app-profile-section>
+  </div>
+</aside>

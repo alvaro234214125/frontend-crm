@@ -1,0 +1,11 @@
+<div class="flex items-center gap-4 border-b border-gray-200 pb-4">
+  <div
+    class="w-16 h-16 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold"
+  >
+    {{ user?.name?.charAt(0).toUpperCase() }}
+  </div>
+  <div>
+    <h2 class="text-xl font-semibold text-gray-800">{{ user?.name }}</h2>
+    <p class="text-sm text-gray-500">{{ user?.role?.name }}</p>
+  </div>
+</div>

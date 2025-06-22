@@ -1,0 +1,30 @@
+<div class="flex justify-between items-center mb-6 relative">
+    <div>
+      <h1 class="text-xl font-semibold text-gray-800">
+        {{ greeting }}, {{ userName }}! 👋🏼
+      </h1>
+      <p class="text-sm text-gray-500 capitalize">{{ date }}</p>
+    </div>
+  
+    <div class="flex items-center gap-4">
+      <div class="relative">
+        <button (click)="toggleMenu()"
+          class="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-md transition">
+          <span class="font-medium">Nuevo</span>
+          <span [class.rotate-180]="openMenu" class="transition-transform">⌄</span>
+        </button>
+  
+        <div
+          class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20"
+          *ngIf="openMenu">
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">Crear cliente</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">Nueva cotización</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">Nueva factura</button>
+        </div>
+      </div>
+      <button class="text-gray-600 hover:text-purple-600 text-sm">🌐 ES</button>
+      <button class="relative text-gray-600 hover:text-purple-600">
+        🔔<span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+      </button>
+    </div>
+  </div>

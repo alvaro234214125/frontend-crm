@@ -1,0 +1,38 @@
+<div class="relative" #container>
+  <div
+    class="flex items-center gap-3 cursor-pointer transition-all"
+    [class.justify-center]="collapsed"
+    (click)="toggleOpen()"
+  >
+    <div
+      class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-semibold text-lg uppercase"
+    >
+      {{ getInitials(user?.name) }}
+    </div>
+
+    <ng-container *ngIf="!collapsed && user">
+      <div>
+        <p class="font-medium">{{ user.name }}</p>
+        <p class="text-sm text-gray-500">{{ user.role?.name }}</p>
+      </div>
+    </ng-container>
+  </div>
+
+  <div
+    *ngIf="open"
+    class="absolute bottom-16 left-0 bg-white border border-gray-200 rounded-lg shadow-xl w-44 z-10 animate-fade-in"
+  >
+    <button
+      class="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+      (click)="onPerfil.emit()"
+    >
+      Ver perfil
+    </button>
+    <button
+      class="flex items-center w-full px-4 py-3 text-sm text-purple-500 hover:bg-purple-50 hover:text-purple-600 border-t border-purple-100"
+      (click)="onLogout.emit()"
+    >
+      Cerrar sesión
+    </button>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div
+  *ngIf="visible"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+>
+  <div
+    class="bg-white p-6 rounded-2xl w-full max-w-md shadow-xl transform transition-all duration-300"
+    [ngClass]="showContent ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
+  >
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">
+      {{ initialData ? 'Editar Usuario' : 'Nuevo Usuario' }}
+    </h2>
+
+    <div class="space-y-4">
+      <input type="text" [(ngModel)]="form.name" placeholder="Nombre"
+        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+      <input type="email" [(ngModel)]="form.email" placeholder="Correo"
+        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+      <input type="password" [(ngModel)]="form.password" placeholder="Contraseña"
+        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+      <select [(ngModel)]="form.roleId"
+        class="w-full px-4 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Seleccionar rol">
+        <option value="" disabled selected>Seleccionar rol</option>
+        <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+      </select>
+
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" [(ngModel)]="form.status"
+          class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+        <span class="text-sm text-gray-600">Usuario activo</span>
+      </label>
+    </div>
+
+    <div class="flex justify-end gap-3 mt-6">
+      <button (click)="handleClose()"
+        class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition">
+        Cancelar
+      </button>
+      <button (click)="submit()"
+        class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition">
+        {{ initialData ? 'Actualizar' : 'Crear' }}
+      </button>
+    </div>
+  </div>
+</div>

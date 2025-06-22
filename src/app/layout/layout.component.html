@@ -1,0 +1,12 @@
+<div *ngIf="user$ | async as user; else loading">
+  <div class="flex h-screen bg-gray-50">
+    <app-sidebar *ngIf="user" [user]="user" class="w-64"></app-sidebar>
+    <div class="flex-1 overflow-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="flex h-screen items-center justify-center text-gray-400 text-lg">Cargando sesión...</div>
+</ng-template>
