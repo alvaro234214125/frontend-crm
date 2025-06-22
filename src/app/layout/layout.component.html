@@ -1,12 +1,22 @@
-<div *ngIf="user$ | async as user; else loading">
-  <div class="flex h-screen bg-gray-50">
-    <app-sidebar *ngIf="user" [user]="user" class="w-64"></app-sidebar>
-    <div class="flex-1 overflow-auto">
+<ng-container *ngIf="user$ | async as user; else loading">
+  <app-sidebar
+    class="fixed top-0 left-0 h-screen z-40"
+    [user]="user"
+    (collapsedChange)="handleSidebarCollapse($event)"
+  ></app-sidebar>
+
+  <div
+    class="relative transition-all duration-300 ease-in-out"
+    [ngClass]="collapsed ? 'ml-20' : 'ml-64'"
+  >
+    <div class="min-h-screen max-h-screen overflow-y-auto bg-gray-50">
       <router-outlet></router-outlet>
     </div>
   </div>
-</div>
+</ng-container>
 
 <ng-template #loading>
-  <div class="flex h-screen items-center justify-center text-gray-400 text-lg">Cargando sesión...</div>
+  <div class="flex h-screen items-center justify-center text-gray-400 text-lg">
+    Cargando sesión...
+  </div>
 </ng-template>

@@ -1,16 +1,18 @@
-import { Component , inject} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faHandsHelping } from '@fortawesome/free-solid-svg-icons';
+import { TopbarComponent } from '../topbar/topbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faHandsHelping } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   standalone: true,
   selector: 'app-help',
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, TopbarComponent, FontAwesomeModule],
   templateUrl: './help.component.html',
 })
 export class HelpComponent {
+  icon = faHandsHelping;
+
   integrantes = [
     { nombre: 'Alvaro Cesar Diaz Chang', codigo: 'I202224528' },
     { nombre: 'Brayan Smith Cordova Tasayco', codigo: 'I202221331' },
@@ -19,10 +21,4 @@ export class HelpComponent {
     { nombre: 'Pool Matias Espinoza Grandos', codigo: 'I202224426' },
     { nombre: 'Daniel Rolando Pizarro Quispe', codigo: 'I202224275' },
   ];
-
-  constructor(library: FaIconLibrary) {
-    library.addIcons(faHandsHelping);
-    
-  }
-
 }

@@ -1,21 +1,24 @@
-<main class="p-8">
+<main class="flex-1 p-10 bg-gray-100 min-h-screen">
+  <app-topbar />
+
+  <div class="bg-white p-6 rounded-xl shadow-md">
     <div class="flex items-center gap-3 mb-6">
-      <fa-icon [icon]="'handsHelping'" class="text-purple-600 text-3xl"></fa-icon>
-      <h1 class="text-3xl font-bold text-purple-700">Información del Proyecto</h1>
+      <fa-icon [icon]="icon" class="text-purple-600 text-3xl"></fa-icon>
+      <h1 class="text-2xl md:text-3xl font-bold text-purple-700">Información del Proyecto</h1>
     </div>
-  
+
     <p class="text-gray-600 mb-6 text-lg">
       Estos son los integrantes que desarrollaron este proyecto:
     </p>
-  
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <div
         *ngFor="let i of integrantes"
-        class="bg-white shadow-sm rounded-xl p-4 border border-gray-100 hover:shadow-md transition duration-300"
+        class="bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md transition duration-300"
       >
-        <h2 class="font-semibold text-lg text-gray-800">{{ i.nombre }}</h2>
-        <p class="text-sm text-gray-500 mt-1">{{ i.codigo }}</p>
+        <h2 class="text-lg font-semibold text-gray-800">{{ i.nombre }}</h2>
+        <p class="text-sm text-gray-500 mt-1">Código: {{ i.codigo }}</p>
       </div>
     </div>
-  </main>
-  
+  </div>
+</main>

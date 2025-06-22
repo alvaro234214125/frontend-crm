@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, Output,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -22,6 +22,7 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
+  @Output() collapsedChange = new EventEmitter<boolean>();
   @Input() user: any;
   collapsed = false;
   faBars = faBars;
@@ -51,8 +52,9 @@ export class SidebarComponent {
   }
 
   toggleSidebar() {
-    this.collapsed = !this.collapsed;
-  }
+  this.collapsed = !this.collapsed;
+  this.collapsedChange.emit(this.collapsed);
+}
 
   irAlPerfil() {
     this.router.navigate(['/perfil']);

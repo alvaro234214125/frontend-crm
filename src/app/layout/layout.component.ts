@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -13,5 +13,10 @@ import { AuthService } from '../auth/auth.service';
 export class LayoutComponent {
   auth = inject(AuthService);
   user$ = this.auth.user$;
-}
 
+  collapsed = false;
+
+  handleSidebarCollapse(value: boolean) {
+    this.collapsed = value;
+  }
+}

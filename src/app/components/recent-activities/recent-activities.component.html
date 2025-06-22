@@ -1,10 +1,18 @@
 <div class="bg-white p-6 rounded-xl shadow-md">
-    <h2 class="text-lg font-semibold mb-4">Últimas actividades</h2>
-    <ul class="space-y-4 text-sm text-gray-600">
-      <li *ngFor="let a of activities" class="border-l-4 border-purple-400 pl-4">
-        <span class="font-medium text-gray-800">{{ a.user }}</span> {{ a.action }}
-        <div class="text-xs text-gray-400">{{ a.time }}</div>
-      </li>
-    </ul>
+  <h2 class="text-lg font-semibold mb-4">Últimas actividades</h2>
+  <ul class="space-y-4 text-sm text-gray-600">
+    <li *ngFor="let a of activities" class="border-l-4 border-purple-400 pl-4">
+      <span class="font-medium text-gray-800">{{ a.performedBy }}</span> {{ a.action }} en {{ a.entityType }}
+      <div class="text-xs text-gray-400">{{ a.timestamp | date:'short' }}</div>
+    </li>
+  </ul>
+
+  <div class="flex justify-between mt-4 text-sm">
+    <button (click)="prevPage()" [disabled]="page === 0" class="text-purple-600 hover:underline disabled:opacity-50">
+      ← Anterior
+    </button>
+    <button (click)="nextPage()" [disabled]="page >= totalPages - 1" class="text-purple-600 hover:underline disabled:opacity-50">
+      Siguiente →
+    </button>
   </div>
-  
+</div>

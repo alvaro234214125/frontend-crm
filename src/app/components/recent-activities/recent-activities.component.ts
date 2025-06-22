@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivityLogService, PageResponse } from '../../auth/activity-log.service';
+import { ActivityLog } from '../../model/activity-log.model';
 
 @Component({
   selector: 'app-recent-activities',
@@ -8,11 +10,39 @@ import { CommonModule } from '@angular/common';
   templateUrl: './recent-activities.component.html',
   styleUrls: ['./recent-activities.component.scss']
 })
-export class RecentActivitiesComponent {
-  activities = [
-    { user: 'John Doe', action: 'añadió un nuevo producto', time: 'hace 2 horas' },
-    { user: 'Anna Smith', action: 'completó una orden', time: 'hace 4 horas' },
-    { user: 'Michael Brown', action: 'creó un nuevo cliente', time: 'Ayer' },
-    { user: 'Lisa Ray', action: 'actualizó un producto', time: 'hace 2 días' },
-  ];
+export class RecentActivitiesComponent implements OnInit {
+  activities: ActivityLog[] = [];
+  page = 0;
+  totalPages = 0;
+
+  constructor(private activityLogService: ActivityLogService) {}
+
+  ngOnInit(): void {
+    this.fetchActivities();
+  }
+
+  fetchActivities(): void {
+    this.activityLogService.getRecentActivities(this.page, 4).subscribe({
+      next: (res) => {
+        this.activities = res.content;
+        this.page = res.page;
+        this.totalPages = res.totalPages;
+      },
+      error: (err) => console.error('Error loading activities', err)
+    });
+  }
+
+  prevPage(): void {
+    if (this.page > 0) {
+      this.page--;
+      this.fetchActivities();
+    }
+  }
+
+  nextPage(): void {
+    if (this.page < this.totalPages - 1) {
+      this.page++;
+      this.fetchActivities();
+    }
+  }
 }
