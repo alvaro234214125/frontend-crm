@@ -5,6 +5,7 @@ import { HelpComponent } from './components/help/help.component';
 import { RolesPageComponent } from './components/roles-page/roles-page.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UsersPageComponent } from './components/users-page/users-page.component';
+import { ClientsPageComponent } from './components/clients-page/clients-page.component';
 import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
@@ -26,6 +27,10 @@ export const routes: Routes = [
         path: 'users',
         component: UsersPageComponent,
         data: { roles: ['ADMIN'] },
+      },
+      {
+        path: 'client',
+        component: ClientsPageComponent
       },
     ],
   },

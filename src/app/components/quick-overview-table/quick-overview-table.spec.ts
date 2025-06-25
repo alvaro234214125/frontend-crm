@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuickOverviewTable } from './quick-overview-table.component';
+import { QuickOverviewTableComponent } from './quick-overview-table.component';
 
 describe('QuickOverviewTable', () => {
-  let component: QuickOverviewTable;
-  let fixture: ComponentFixture<QuickOverviewTable>;
+  let component: QuickOverviewTableComponent;
+  let fixture: ComponentFixture<QuickOverviewTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QuickOverviewTable]
+      imports: [QuickOverviewTableComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(QuickOverviewTable);
+    fixture = TestBed.createComponent(QuickOverviewTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
