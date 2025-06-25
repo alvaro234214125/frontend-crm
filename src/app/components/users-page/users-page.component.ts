@@ -87,6 +87,7 @@ openNewUserForm() {
         this.showForm = false;
         this.editData = null;
         this.fetchUsers(this.page);
+        this.fetchUserStats();
       },
       error: () => {
         Swal.fire('Error', 'No se pudo guardar el usuario', 'error');
@@ -106,6 +107,7 @@ openNewUserForm() {
       if (result.isConfirmed) {
         this.userService.deleteUser(id).subscribe(() => {
           this.fetchUsers(this.page);
+          this.fetchUserStats();
           Swal.fire('Eliminado', 'El usuario fue eliminado', 'success');
         });
       }
