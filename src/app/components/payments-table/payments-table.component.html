@@ -1,0 +1,45 @@
+<div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-gray-500">
+          <th class="py-3 px-4">ID</th>
+          <th class="py-3 px-4">ID Factura</th>
+          <th class="py-3 px-4">Monto</th>
+          <th class="py-3 px-4">Fecha de Pago</th>
+          <th class="py-3 px-4">Método de Pago</th>
+          <th class="py-3 px-4">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments" class="border-t border-gray-200 hover:bg-gray-50">
+          <td class="py-3 px-4 font-medium">{{ payment.id }}</td>
+          <td class="py-3 px-4">{{ payment.invoiceId }}</td>
+          <td class="py-3 px-4 font-semibold text-green-600">{{ payment.amount | currency:'S/ ' }}</td>
+          <td class="py-3 px-4">{{ payment.paymentDate | date:'dd/MM/yyyy' }}</td>
+          <td class="py-3 px-4">
+            <span
+              class="px-2 py-1 text-xs rounded-full font-medium"
+              [ngClass]="getPaymentMethodClass(payment.paymentMethod)"
+            >
+              {{ getPaymentMethodLabel(payment.paymentMethod) }}
+            </span>
+          </td>
+          <td class="py-3 px-4">
+            <div class="flex gap-2">
+              <button
+                (click)="onDelete.emit(payment.id)"
+                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+              >
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="payments.length === 0">
+          <td colspan="6" class="text-center py-8 text-gray-500 italic">
+            No hay pagos registrados.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

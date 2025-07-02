@@ -1,0 +1,52 @@
+<main class="flex-1 p-10 bg-gray-100 min-h-screen">
+  <app-topbar />
+  <app-stats-cards [stats]="stats" />
+
+  <div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+      <h2 class="text-lg font-semibold">Interacciones</h2>
+      <button 
+        (click)="openNewInteraction()" 
+        class="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md">
+        + Nueva Interacción
+      </button>
+    </div>
+
+    <app-interactions-table
+      [interactions]="interactions"
+      [clients]="clients"
+      (onEdit)="openEditInteraction($event)"
+      (onDelete)="onDeleteInteraction($event)">
+    </app-interactions-table>
+
+    <div class="flex justify-center mt-6 space-x-2">
+      <button 
+        (click)="onPageChange(currentPage - 1)" 
+        [disabled]="currentPage <= 0"
+        class="px-3 py-1 bg-gray-300 text-gray-700 rounded disabled:opacity-50">
+        Anterior
+      </button>
+      
+      <span class="px-3 py-1 bg-blue-500 text-white rounded">
+        {{ currentPage + 1 }} de {{ totalPages }}
+      </span>
+      
+      <button 
+        (click)="onPageChange(currentPage + 1)" 
+        [disabled]="currentPage >= totalPages - 1"
+        class="px-3 py-1 bg-gray-300 text-gray-700 rounded disabled:opacity-50">
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  <app-interactions-form-modal
+    *ngIf="showInteractionModal"
+    [visible]="showInteractionModal"
+    [isEdit]="isEditInteraction"
+    [clients]="clients"
+    [initialData]="editingInteraction"
+    (onClose)="closeInteractionModal()"
+    (onSubmit)="saveInteraction($event)">
+  </app-interactions-form-modal>
+</main>

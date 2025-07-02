@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-profile-header',
   imports: [CommonModule],
   templateUrl: './profile-header.component.html',
-  styleUrls: ['./profile-header.component.scss'],
 })
 export class ProfileHeaderComponent {
   @Input() user: any;

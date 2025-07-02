@@ -1,0 +1,67 @@
+<div class="overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="text-left text-gray-500">
+        <th class="py-3 px-4">ID</th>
+        <th class="py-3 px-4">Título</th>
+        <th class="py-3 px-4">Descripción</th>
+        <th class="py-3 px-4">Fecha Límite</th>
+        <th class="py-3 px-4">Estado</th>
+        <th class="py-3 px-4">Cliente</th>
+        <th class="py-3 px-4">Usuario</th>
+        <th class="py-3 px-4">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of tasks" class="border-t border-gray-200 hover:bg-gray-50">
+        <td class="py-3 px-4 font-medium">{{ t.id }}</td>
+        <td class="py-3 px-4">{{ t.title }}</td>
+        <td class="py-3 px-4">{{ t.description }}</td>
+        <td class="py-3 px-4">{{ t.dueDate | date: 'dd/MM/yyyy' }}</td>
+        <td class="py-3 px-4">
+          <span
+            class="px-2 py-1 text-xs rounded-full font-medium"
+            [ngClass]="{
+              'bg-green-100 text-green-700': t.status === 'Completed',
+              'bg-yellow-100 text-yellow-700': t.status === 'Pending',
+              'bg-red-100 text-red-700': t.status === 'Overdue'
+            }"
+          >
+            {{
+              t.status === 'Completed'
+                ? 'Completada'
+                : t.status === 'Pending'
+                ? 'Pendiente'
+                : t.status === 'Overdue'
+                ? 'Vencida'
+                : t.status
+            }}
+          </span>
+        </td>
+        <td class="py-3 px-4">{{ getClientName(t.clientId) }}</td>
+        <td class="py-3 px-4">{{ t.userId }}</td>
+        <td class="py-3 px-4">
+          <div class="flex gap-2">
+            <button
+              (click)="emitEdit(t)"
+              class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+            >
+              Editar
+            </button>
+            <button
+              (click)="emitDelete(t.id!)"
+              class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+            >
+              Eliminar
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="tasks.length === 0">
+        <td colspan="8" class="text-center py-8 text-gray-500 italic">
+          No hay tareas registradas.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

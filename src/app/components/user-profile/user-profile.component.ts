@@ -9,7 +9,6 @@ import { ProfileFormComponent } from '../profile-form/profile-form.component';
   standalone: true,
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
   imports: [
     CommonModule,
     TopbarComponent,

@@ -14,7 +14,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-profile-section',
   imports: [CommonModule],
   templateUrl: './profile-section.component.html',
-  styleUrls: ['./profile-section.component.scss'],
 })
 export class ProfileSectionComponent {
   @Input() user: any;

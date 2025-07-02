@@ -1,0 +1,40 @@
+<main class="flex-1 p-10 bg-gray-100 min-h-screen">
+  <app-topbar />
+  <app-stats-cards [stats]="stats" />
+
+  <div class="bg-white p-6 rounded-xl shadow-md">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+      <h2 class="text-lg font-semibold">Contactos</h2>
+      <button (click)="openContactForm(false)"
+              class="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md">
+        + Nuevo Contacto
+      </button>
+    </div>
+
+    <form (submit)="onSearch($event)" class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6">
+      <input [(ngModel)]="search.name" name="name" placeholder="Nombre" class="border px-4 py-2 rounded-md" />
+      <input [(ngModel)]="search.email" name="email" placeholder="Correo" class="border px-4 py-2 rounded-md" />
+      <input [(ngModel)]="search.phone" name="phone" placeholder="Teléfono" class="border px-4 py-2 rounded-md" />
+      <input [(ngModel)]="search.position" name="position" placeholder="Cargo" class="border px-4 py-2 rounded-md" />
+      
+      <div class="flex gap-2">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">Buscar</button>
+        <button type="button" (click)="resetSearch()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md">Limpiar</button>
+      </div>
+    </form>
+
+    <app-contacts-table
+      [contacts]="contacts"
+      (onEdit)="openContactForm(true, $event)"
+      (onDelete)="handleDelete($event)">
+    </app-contacts-table>
+  </div>
+
+  <app-contacts-form-modal
+    [visible]="showContactModal"
+    [isEdit]="isEditContact"
+    [initialData]="editingContact"
+    (onClose)="closeContactForm()"
+    (onSubmit)="saveContact($event)">
+  </app-contacts-form-modal>
+</main>

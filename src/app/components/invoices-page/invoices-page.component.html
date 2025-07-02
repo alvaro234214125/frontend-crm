@@ -1,0 +1,47 @@
+<main class="flex-1 p-10 bg-gray-100 min-h-screen">
+  <app-topbar></app-topbar>
+  <app-stats-cards [stats]="stats"></app-stats-cards>
+  <div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold text-gray-800">Facturas</h2>
+      <button
+        (click)="onNewInvoice()"
+        class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md">
+        + Nueva Factura
+      </button>
+    </div>
+    <app-invoices-table
+      [invoices]="invoices"
+      [clients]="clients"
+      (delete)="onDeleteInvoice($event)" 
+      (downloadPdf)="onDownloadPdf($event)"/>
+
+    <div class="flex justify-center mt-6 space-x-2">
+      <button
+        class="bg-gray-200 px-3 py-1 rounded disabled:opacity-50"
+        [disabled]="currentPage <= 0"
+        (click)="onPageChange(currentPage - 1)">
+        Anterior
+      </button>
+      <span class="px-3 py-1 bg-blue-500 text-white rounded">
+        {{ currentPage + 1 }} de {{ totalPages }}
+      </span>
+      <button
+        class="bg-gray-200 px-3 py-1 rounded disabled:opacity-50"
+        [disabled]="currentPage >= totalPages - 1"
+        (click)="onPageChange(currentPage + 1)">
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  <app-invoices-form-modal
+    *ngIf="showModal"
+    [visible]="showModal"
+    [invoice]="editingInvoice"
+    [clients]="clients"
+    [products]="products"
+    (saveEvent)="onSaveInvoice($event)"
+    (close)="onModalClose($event)">
+  </app-invoices-form-modal>
+</main>

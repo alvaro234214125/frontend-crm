@@ -7,7 +7,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   selector: 'app-stats-cards',
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './stats-cards.component.html',
-  styleUrls: ['./stats-cards.component.scss'],
 })
 export class StatsCardsComponent {
   @Input() stats: any[] = [];

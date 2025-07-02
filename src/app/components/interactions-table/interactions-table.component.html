@@ -1,0 +1,46 @@
+<div class="overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="text-left text-gray-500">
+        <th class="py-3 px-4">ID</th>
+        <th class="py-3 px-4">Cliente</th>
+        <th class="py-3 px-4">Usuario</th>
+        <th class="py-3 px-4">Tipo</th>
+        <th class="py-3 px-4">Descripción</th>
+        <th class="py-3 px-4">Fecha</th>
+        <th class="py-3 px-4 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of interactions" class="border-t border-gray-200 hover:bg-gray-50">
+        <td class="py-3 px-4 font-medium">{{ i.id }}</td>
+        <td class="py-3 px-4">{{ getClientName(i.clientId) }}</td>
+        <td class="py-3 px-4">{{ i.userId }}</td>
+        <td class="py-3 px-4">{{ i.type }}</td>
+        <td class="py-3 px-4">{{ i.description }}</td>
+        <td class="py-3 px-4">{{ i.date | date: 'dd/MM/yyyy' }}</td>
+        <td class="py-3 px-4 text-center">
+          <div class="flex gap-2 justify-center">
+            <button
+              (click)="onEdit.emit(i)"
+              class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+            >
+              Editar
+            </button>
+            <button
+              (click)="onDelete.emit(i.id!)"
+              class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+            >
+              Eliminar
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="interactions.length === 0">
+        <td colspan="7" class="text-center py-8 text-gray-500 italic">
+          No hay interacciones registradas.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

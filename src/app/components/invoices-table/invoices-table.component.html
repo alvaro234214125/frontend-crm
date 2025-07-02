@@ -1,0 +1,49 @@
+<div class="overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="text-left text-gray-500">
+        <th class="py-3 px-4">ID</th>
+        <th class="py-3 px-4">Cliente</th>
+        <th class="py-3 px-4">Fecha de Emisión</th>
+        <th class="py-3 px-4">Total</th>
+        <th class="py-3 px-4">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices" class="border-t border-gray-200 hover:bg-gray-50">
+        <td class="py-3 px-4 font-medium">{{ invoice.id }}</td>
+        <td class="py-3 px-4">{{ getClientName(invoice.clientId) }}</td>
+        <td class="py-3 px-4">{{ invoice.issueDate | date:'dd/MM/yyyy' }}</td>
+        <td class="py-3 px-4 font-semibold text-green-600">{{ invoice.total | currency:'S/ ' }}</td>
+        <td class="py-3 px-4">
+          <div class="flex gap-2">
+            <button
+              (click)="downloadPdf.emit(invoice.id)"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm flex items-center gap-1 transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 22H16C18.8 22 20.2 22 21.1 21.1C22 20.2 22 18.8 22 16V15C22 12.2 22 10.8 21.1 9.9C20.3 9.1 19.2 9 17 9M7 9C4.8 9 3.7 9.1 2.9 9.9C2 10.8 2 12.2 2 15V16C2 18.8 2 20.2 2.9 21.1C3.2 21.4 3.5 21.6 4 21.75"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M12 2L12 15M12 15L9 11.5M12 15L15 11.5"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Factura
+            </button>
+            <button
+              (click)="delete.emit(invoice.id)"
+              class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+            >
+              Eliminar
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="invoices.length === 0">
+        <td colspan="5" class="text-center py-8 text-gray-500 italic">
+          No hay facturas registradas.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

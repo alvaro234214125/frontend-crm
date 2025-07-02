@@ -1,0 +1,20 @@
+<div class="bg-white p-6 rounded-xl shadow-md">
+  <h2 class="text-lg font-semibold mb-4">Últimos ingresos</h2>
+  <ul class="space-y-4 text-sm text-gray-600">
+    <li *ngFor="let invoice of invoices" class="border-l-4 border-green-400 pl-4">
+      <span class="font-medium text-gray-800">Factura #{{ invoice.id }}</span>
+      <span class="mx-1 text-gray-400"> —</span>
+      <span class="ml-2 text-green-600 font-bold">S/ {{ invoice.total | number:'1.2-2' }}</span>
+      <div class="text-xs text-gray-400">{{ invoice.issueDate | date:'short' }}</div>
+    </li>
+  </ul>
+
+  <div class="flex justify-between mt-4 text-sm">
+    <button (click)="prevPage()" [disabled]="page === 0" class="text-green-600 hover:underline disabled:opacity-50">
+      ← Anterior
+    </button>
+    <button (click)="nextPage()" [disabled]="page >= totalPages - 1" class="text-green-600 hover:underline disabled:opacity-50">
+      Siguiente →
+    </button>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div
+  *ngIf="visible"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+  (click)="handleClose()"
+>
+  <div
+    class="bg-white p-6 rounded-2xl w-full max-w-md shadow-xl transform transition-all duration-300"
+    [ngClass]="showContent ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
+    (click)="onContentClick($event)"
+  >
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">
+      {{ isEdit ? 'Editar Producto' : 'Nuevo Producto' }}
+    </h2>
+    <form (ngSubmit)="submit()" class="space-y-6">
+      <div class="grid grid-cols-1 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+          <input
+            [(ngModel)]="name"
+            name="name"
+            placeholder="Nombre"
+            class="w-full px-4 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+          <input
+            [(ngModel)]="description"
+            name="description"
+            placeholder="Descripción"
+            class="w-full px-4 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Precio</label>
+          <input
+            type="number"
+            [(ngModel)]="price"
+            name="price"
+            min="0"
+            placeholder="Precio"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+          <input
+            [(ngModel)]="type"
+            name="type"
+            placeholder="Tipo"
+            class="w-full px-4 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 mt-6">
+        <button 
+          type="button"
+          (click)="handleClose()" 
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-green-700 rounded-md transition"
+          [disabled]="!name || !description || price === null || price < 0 || !type"
+        >
+          {{ isEdit ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

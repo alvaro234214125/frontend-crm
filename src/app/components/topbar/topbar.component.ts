@@ -1,16 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss']
+  templateUrl: './topbar.component.html'
 })
 export class TopbarComponent {
   private auth = inject(AuthService);
+  private router = inject(Router);
+
   userName = 'Usuario';
 
   date = new Date().toLocaleDateString('es-PE', {
@@ -30,6 +32,21 @@ export class TopbarComponent {
 
   toggleMenu() {
     this.openMenu = !this.openMenu;
+  }
+
+  goToCreateClient() {
+    this.router.navigate(['/client']);
+    this.openMenu = false;
+  }
+
+  goToNewQuotation() {
+    this.router.navigate(['/quotations']);
+    this.openMenu = false;
+  }
+
+  goToNewInvoice() {
+    this.router.navigate(['/invoices']);
+    this.openMenu = false;
   }
 
   ngOnInit() {

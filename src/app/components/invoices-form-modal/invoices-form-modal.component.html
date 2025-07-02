@@ -1,0 +1,138 @@
+<div
+  *ngIf="visible"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+  (click)="closeModal()"
+>
+  <div
+    class="bg-white p-6 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-xl transform transition-all duration-300"
+    [ngClass]="showContent ? 'opacity-100 scale-100' : 'opacity-0 scale-95'"
+    (click)="onContentClick($event)"
+  >
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">
+      {{ invoice ? 'Editar Factura' : 'Nueva Factura' }}
+    </h2>
+    <form (ngSubmit)="save()" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
+          <select
+            [(ngModel)]="formData.clientId"
+            name="clientId"
+            class="w-full px-4 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          >
+            <option [ngValue]="null">Seleccionar cliente</option>
+            <option *ngFor="let client of clients" [ngValue]="client.id">
+              {{ client.name }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Emisión</label>
+          <input
+            type="date"
+            [(ngModel)]="formData.issueDate"
+            name="issueDate"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+      </div>
+      <!-- Estado eliminado porque no existe en la lógica de negocio ni en el modelo/dto -->
+      <div class="border-t pt-4">
+        <h3 class="text-lg font-medium mb-3">Detalles</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Producto</label>
+            <select
+              [(ngModel)]="selectedProductId"
+              name="selectedProductId"
+              class="w-full px-4 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option [ngValue]="null">Seleccionar producto</option>
+              <option *ngFor="let product of products" [ngValue]="product.id">
+                {{ product.name }} - S/ {{ product.price }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad</label>
+            <input
+              type="number"
+              [(ngModel)]="quantity"
+              name="quantity"
+              min="1"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div class="flex items-end">
+            <button
+              type="button"
+              (click)="addDetail()"
+              [disabled]="!selectedProductId || quantity <= 0"
+              class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Agregar
+            </button>
+          </div>
+        </div>
+        <div *ngIf="formData.details.length > 0" class="border rounded-lg overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="py-2 px-4 text-left">Producto</th>
+                <th class="py-2 px-4 text-left">Cantidad</th>
+                <th class="py-2 px-4 text-left">Precio Unit.</th>
+                <th class="py-2 px-4 text-left">Subtotal</th>
+                <th class="py-2 px-4 text-left">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detail of formData.details; let i = index" class="border-t">
+                <td class="py-2 px-4">{{ getProductName(detail.productId) }}</td>
+                <td class="py-2 px-4">{{ detail.quantity }}</td>
+                <td class="py-2 px-4">S/ {{ detail.unitPrice }}</td>
+                <td class="py-2 px-4 font-semibold">S/ {{ (detail.quantity * detail.unitPrice).toFixed(2) }}</td>
+                <td class="py-2 px-4">
+                  <button
+                    type="button"
+                    (click)="removeDetail(i)"
+                    class="text-red-500 hover:text-red-700 text-sm"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot class="bg-gray-50 border-t">
+              <tr>
+                <td colspan="3" class="py-2 px-4 font-semibold text-right">Total:</td>
+                <td class="py-2 px-4 font-bold text-green-600">S/ {{ getTotal().toFixed(2) }}</td>
+                <td class="py-2 px-4"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div *ngIf="formData.details.length === 0" class="text-center py-8 text-gray-500 italic border rounded-lg">
+          No hay productos agregados a la factura.
+        </div>
+      </div>
+      <div class="flex justify-end gap-3 mt-6">
+        <button 
+          type="button"
+          (click)="closeModal()" 
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-green-700 rounded-md transition"
+          [disabled]="!formData.clientId || !formData.issueDate || formData.details.length === 0"
+        >
+          {{ invoice ? 'Actualizar Factura' : 'Crear Factura' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

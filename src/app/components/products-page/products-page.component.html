@@ -1,0 +1,49 @@
+<main class="flex-1 p-10 bg-gray-100 min-h-screen">
+  <app-topbar />
+  <app-stats-cards [stats]="stats" />
+
+  <div class="bg-white p-6 rounded-xl shadow-md">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+      <h2 class="text-lg font-semibold">Productos</h2>
+      <button (click)="openNewProductForm()"
+              class="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md">
+        + Nuevo Producto
+      </button>
+    </div>
+
+    <form (submit)="onSearch($event)" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+      <input [(ngModel)]="search.name" name="name" placeholder="Nombre" class="border px-4 py-2 rounded-md" />
+      <input [(ngModel)]="search.type" name="type" placeholder="Tipo" class="border px-4 py-2 rounded-md" />
+      <div class="flex gap-2">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md w-full">Buscar</button>
+        <button type="button" (click)="resetSearch()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md w-full">Limpiar</button>
+      </div>
+    </form>
+
+    <app-products-table
+      [products]="products"
+      (onEdit)="editProduct($event)"
+      (onDelete)="handleDelete($event)">
+    </app-products-table>
+
+    <div class="flex justify-center mt-6 space-x-2">
+      <button (click)="fetchProducts(page - 1)" [disabled]="page === 0"
+              class="bg-gray-200 px-3 py-1 rounded disabled:opacity-50">
+        Anterior
+      </button>
+      <span>Página {{ page + 1 }} de {{ totalPages }}</span>
+      <button (click)="fetchProducts(page + 1)" [disabled]="page + 1 >= totalPages"
+              class="bg-gray-200 px-3 py-1 rounded disabled:opacity-50">
+        Siguiente
+      </button>
+    </div>
+  </div>
+  
+  <app-products-form-modal
+    [visible]="modalVisible"
+    [isEdit]="modalIsEdit"
+    [initialData]="modalInitialData"
+    (onClose)="handleModalClose()"
+    (onSubmit)="handleModalSubmit($event)"
+  ></app-products-form-modal>
+</main>

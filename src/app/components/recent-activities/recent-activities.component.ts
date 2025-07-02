@@ -8,7 +8,6 @@ import { ActivityLog } from '../../model/activity-log.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './recent-activities.component.html',
-  styleUrls: ['./recent-activities.component.scss']
 })
 export class RecentActivitiesComponent implements OnInit {
   activities: ActivityLog[] = [];

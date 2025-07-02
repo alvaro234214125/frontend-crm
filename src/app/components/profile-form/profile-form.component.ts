@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-profile-form',
   imports: [CommonModule, FormsModule],
   templateUrl: './profile-form.component.html',
-  styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent {
   @Input() user!: any;

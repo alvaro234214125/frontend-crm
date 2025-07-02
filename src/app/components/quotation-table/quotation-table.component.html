@@ -1,0 +1,51 @@
+<div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-gray-500">
+          <th class="py-3 px-4">ID</th>
+          <th class="py-3 px-4">Cliente</th>
+          <th class="py-3 px-4">Fecha de Emisión</th>
+          <th class="py-3 px-4">Estado</th>
+          <th class="py-3 px-4">Total</th>
+          <th class="py-3 px-4">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quotation of quotations" class="border-t border-gray-200 hover:bg-gray-50">
+          <td class="py-3 px-4 font-medium">{{ quotation.id }}</td>
+          <td class="py-3 px-4">{{ getClientName(quotation.clientId) }}</td>
+          <td class="py-3 px-4">{{ quotation.issueDate | date:'dd/MM/yyyy' }}</td>
+          <td class="py-3 px-4">
+            <span
+              class="px-2 py-1 text-xs rounded-full font-medium"
+              [ngClass]="getStatusClass(quotation.status)"
+            >
+              {{ getStatusLabel(quotation.status) }}
+            </span>
+          </td>
+          <td class="py-3 px-4 font-semibold text-green-600">{{ quotation.total | currency:'S/ ' }}</td>
+          <td class="py-3 px-4">
+            <div class="flex gap-2">
+              <button
+                (click)="onViewDetail.emit(quotation.id)"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+              >
+                Ver Detalle
+              </button>
+              <button
+                (click)="onDelete.emit(quotation.id)"
+                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-sm transition-colors"
+              >
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="quotations.length === 0">
+          <td colspan="6" class="text-center py-8 text-gray-500 italic">
+            No hay cotizaciones registradas.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

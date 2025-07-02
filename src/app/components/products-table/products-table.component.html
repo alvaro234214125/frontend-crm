@@ -1,0 +1,31 @@
+<table class="w-full text-sm">
+  <thead>
+    <tr class="text-left text-gray-500">
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Tipo</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products" class="border-t border-gray-200 hover:bg-gray-50">
+      <td class="py-2 font-medium">{{ p.id }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.description }}</td>
+      <td>{{ p.type }}</td>
+      <td>{{ p.price | currency:'S/. ':'symbol-narrow' }}</td>
+      <td class="flex gap-2 py-2">
+        <button (click)="emitEdit(p)"
+                class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1.5 rounded-md text-sm">
+          Editar
+        </button>
+        <button (click)="emitDelete(p.id)"
+                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm">
+          Eliminar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

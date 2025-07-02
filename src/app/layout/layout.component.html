@@ -9,8 +9,11 @@
     class="relative transition-all duration-300 ease-in-out"
     [ngClass]="collapsed ? 'ml-20' : 'ml-64'"
   >
-    <div class="min-h-screen max-h-screen overflow-y-auto bg-gray-50">
-      <router-outlet></router-outlet>
+    <div
+      class="min-h-screen max-h-screen overflow-y-auto bg-gray-50"
+      [@routeAnimations]="getRouteAnimationData(outlet)"
+    >
+      <router-outlet #outlet="outlet"></router-outlet>
     </div>
   </div>
 </ng-container>

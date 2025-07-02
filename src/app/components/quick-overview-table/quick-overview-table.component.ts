@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ClientService } from '../../auth/client.service';
 
 @Component({
   selector: 'app-quick-overview-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './quick-overview-table.component.html',
-  styleUrls: ['./quick-overview-table.component.scss']
 })
-export class QuickOverviewTableComponent {
-  orders = [
-    { id: '#001', customer: 'John Doe', status: 'Completado', total: '$120.00' },
-    { id: '#002', customer: 'Anna Smith', status: 'Pendiente', total: '$95.00' },
-    { id: '#003', customer: 'Michael Brown', status: 'Cancelado', total: '$78.50' },
-  ];
+export class QuickOverviewTableComponent implements OnInit {
+  private clientService = inject(ClientService);
+  latestClients: any[] = [];
+
+  ngOnInit() {
+    this.clientService.getLastClients().subscribe(res => this.latestClients = res.content);
+  }
 }

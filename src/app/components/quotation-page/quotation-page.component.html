@@ -1,0 +1,58 @@
+<main class="flex-1 p-10 bg-gray-100 min-h-screen">
+  <app-topbar />
+  <app-stats-cards [stats]="stats" />
+
+  <div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+      <h2 class="text-lg font-semibold">Cotizaciones</h2>
+      <button (click)="openCreateForm()"
+              class="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md">
+        + Nueva Cotización
+      </button>
+    </div>
+
+    <app-quotation-table
+      [quotations]="quotations"
+      [clients]="clients"
+      [products]="products"
+      (onViewDetail)="handleViewDetail($event)"
+      (onDelete)="handleDelete($event)">
+    </app-quotation-table>
+
+    <div class="flex justify-center mt-6 space-x-2">
+      <button 
+        (click)="fetchQuotations(page - 1)" 
+        [disabled]="page === 0"
+        class="px-3 py-1 bg-gray-300 text-gray-700 rounded disabled:opacity-50">
+        Anterior
+      </button>
+      
+      <span class="px-3 py-1 bg-blue-500 text-white rounded">
+        {{ page + 1 }} de {{ totalPages }}
+      </span>
+      
+      <button 
+        (click)="fetchQuotations(page + 1)" 
+        [disabled]="page >= totalPages - 1"
+        class="px-3 py-1 bg-gray-300 text-gray-700 rounded disabled:opacity-50">
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  <app-quotation-form-modal
+    *ngIf="showForm"
+    [clients]="clients"
+    [products]="products"
+    (onClose)="closeForm()"
+    (onSubmit)="handleSubmit($event)"
+  />
+
+  <app-quotation-detail-modal
+    *ngIf="showDetail"
+    [quotationId]="selectedQuotationId"
+    [clients]="clients"
+    [products]="products"
+    (onClose)="closeDetail()"
+  />
+</main>
